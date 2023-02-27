@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>bitmap font editor</title>
+		<link rel="icon" type="image/x-icon" href="favicon.ico">
+		<style>
+			* {
+				background-color: black;
+				color: white;
+			}
+
+			canvas {
+				position: relative;
+				inset: 0 0 0 0;
+				margin: auto;
+				border: 2px solid white
+			}
+			textArea {
+				text-align: left;
+				width: 50%;
+				height: 320px;
+				resize: none;
+			}
+
+			.example {
+				position: relative;
+				font-size: 20px;
+				font-family: "bmfont", monospace;
+				text-size-adjust: none;
+				-webkit-text-size-adjust: none;
+				-webkit-font-smoothing: none;
+				-moz-osx-font-smoothing: grayscale;
+				font-smooth: never;
+				filter: contrast(100.00001%);
+			}
+
+			.ident {
+				padding-left: 25%
+			}
+			
+			.chardisp {
+				vertical-align: bottom;
+				position: relative;
+				display: inline-block;
+				text-align: center;
+				line-height: 2em;
+				width: 2ch;
+				height: 2em;
+				border: 1px solid white;
+				cursor: pointer;
+			}
+
+			.chardisp:hover {
+				color: magenta;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="info"></div>
+		<div class="ident">
+			<canvas id="screen">Your browser does not support canvas.</canvas>
+			<textarea class="example">the quick brown fox jumped over the lazy dog THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG 123456789 !@#$%^&amp;*() ;: '" `~ ,<.> /? [{]}</textarea>
+		</div>
+		<button onclick="renderFont()">render font</button>
+		<div id="example" class="example" onclick="selectChar(event)"></div>
+		<button onclick="downloadFont()">download font</button>
+		<button onclick="downloadHex()">download hex</button>
+	</body>
+	<script src="hex.js"></script>
+	<script src="hex2otf"></script>
+	<script src="bmfont.js"></script>
+</html>
