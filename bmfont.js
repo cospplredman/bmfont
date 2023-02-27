@@ -27,6 +27,11 @@ selectChar();
 // Mouse
 let mbutton=0;
 
+// Outer / meta
+screen.addEventListener("contextmenu", function(e) {
+  e.preventDefault();
+}, false);
+
 // Mouse
 screen.addEventListener("mousedown", function(e) {
 	let xTmp = Math.floor(x/px), yTmp = Math.floor(y/px);
