@@ -21,16 +21,11 @@ screenctx.canvas.height = px*16;
 let currentLetter = 0;
 let fontDict = {};
 let charBuf;
-selectChar();
 renderFont();
+selectChar();
 
 // Mouse
 let mbutton=0;
-
-// Outer / meta
-screen.addEventListener("contextmenu", function(e) {
-  e.preventDefault();
-}, false);
 
 // Mouse
 screen.addEventListener("mousedown", function(e) {
@@ -39,9 +34,6 @@ screen.addEventListener("mousedown", function(e) {
 		case 0:
 			mbutton |= 1;
 			setCell(xTmp, yTmp, 1);
-		break;
-		case 1:
-			mbutton |= 2;
 		break;
 		case 2:
 			mbutton |= 4;
@@ -74,9 +66,6 @@ window.addEventListener("mouseup", function(e) {
 		case 0:
 			mbutton &= ~1;
 		break;
-		case 1:
-			mbutton &= ~2;
-		break;
 		case 2:
 			mbutton &= ~4;
 		break;
@@ -84,7 +73,6 @@ window.addEventListener("mouseup", function(e) {
 });
 
 function selectChar(e){
-	console.log(e);
 	if(e){
 		currentLetter = +e.target.getAttribute("value");
 	}else{

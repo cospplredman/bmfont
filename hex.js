@@ -4,7 +4,6 @@ function renderFontHex(fontdict){
 	for(let glyph in fontdict){
 		res += (+glyph | (1<<16)).toString(16).slice(-4) + ":";
 		let cur = fontdict[glyph];
-		console.log(cur);
 		let i = 0;
 		while(i < cur.length){
 			let hex = 8*cur[i] + 4*cur[i+1] + 2*cur[i+2] + cur[i+3];
@@ -16,10 +15,22 @@ function renderFontHex(fontdict){
 	return res;
 }
 
+/*
+for less bad font files impliment this cos
+
+./hex2otf hex=fsf out=font.otf format=cff,gpos 0="i made this" 1=cosfont 2=Regular 3="cos's wacky retro font" 4="cos's 8x16 inspired font" 5="-1" 6="cos's 8x16 inspired font" 7="co
+s:TM:" 8="cos" 9="cos" 10="cos's cool fun font" 11="cospplredman.github.io/bmfont" 12="cospplredman.github.io/bmfont" 13="font gang" 14="bro trust me" 18="cos's verry cool 8x16 font that you should deffinetly use"
+ 19="According to all known laws of aviation, bees should not be able to fly"
+*/
+
+let nameTable = [`0="i made this"`, `1=cosfont`, `2=Regular`, `3="cos's wacky retro font"`, `4="cos's 8x16 inspired font"`, `5="-1"`, `6="cos's 8x16 inspired font"`, `7="cos:TM:"`, `8="cos"`, `9="cos"`, `10="cos's cool fun font"`, `11="cospplredman.github.io/bmfont"`, `12="cospplredman.github.io/bmfont"`, `13="font gang"`, `14="bro trust me"`, `18="cos's verry cool 8x16 font that you should deffinetly use"`, 
+ `19="According to all known laws of aviation, bees should not be able to fly"
+`]
+
 async function main(hex){
     const Module = await createModule()
     Module.FS.writeFile("font.hex", hex);
-    Module.callMain(['hex=font.hex', 'out=font.otf', 'format=cff2'])
+    Module.callMain(['hex=font.hex', 'out=font.otf', 'format=cff2,gpos', ...nameTable])
     let res = Module.FS.readFile("font.otf");
     return res;
 }

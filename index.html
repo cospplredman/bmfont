@@ -45,9 +45,24 @@
 				text-align: center;
 				line-height: 2em;
 				width: 2ch;
-				height: 2em;
+				height: 2.5em;
 				border: 1px solid white;
 				cursor: pointer;
+			}
+
+			.chardisp::after {
+				font-family: monospace;
+				content: attr(value);
+				position: absolute;
+				border-top: 1px solid white;
+				font-size: 10px;
+				display: block;
+				line-height: 1.5em;
+				height: 1.5em;
+				vertical-align: bottom;
+				width: inherit;
+				bottom: 0;
+				left: 0;
 			}
 
 			.chardisp:hover {
@@ -63,8 +78,10 @@
 		</div>
 		<button onclick="renderFont()">render font</button>
 		<div id="example" class="example" onclick="selectChar(event)"></div>
-		<button onclick="downloadFont()">download font</button>
+		<button onclick="downloadFont()">download font (web)</button>
 		<button onclick="downloadHex()">download hex</button>
+		<p>the download font (web) button will download the currently rendered font, the font properties will be set to whatever is in the "nameTable" array, you can modify that by opening the developer tools (f12)</p>
+		<p>the download hex button will download the .hex file for the font, .hex files are used by the gnu unifont tools and can be used to generate ttf and otf files</p>
 	</body>
 	<script src="hex.js"></script>
 	<script src="hex2otf"></script>
