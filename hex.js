@@ -27,11 +27,11 @@ let nameTable = [`0="i made this"`, `1=cosfont`, `2=Regular`, `3="cos's wacky re
  `19="According to all known laws of aviation, bees should not be able to fly"
 `]
 
-async function main(hex){
+async function main(hex, format = ["format=cff2,gpos"], nametable = nameTable){
     const Module = await createModule()
     Module.FS.writeFile("font.hex", hex);
-    Module.callMain(['hex=font.hex', 'out=font.otf', 'format=cff2,gpos', ...nameTable])
-    let res = Module.FS.readFile("font.otf");
+    Module.callMain(['hex=font.hex', 'out=font', ...format, ...nametable])
+    let res = Module.FS.readFile("font");
     return res;
 }
 
@@ -68,8 +68,20 @@ downloadURL = function(data, fileName) {
   a.remove();
 };
 
-function downloadFont(){
+function downloadFontWeb(){
 	main(renderFontHex(fontDict)).then((v)=>{
+		downloadBlob(v, "bmfont.otf", "application/octet-stream");
+	});
+}
+
+function downloadFont(){
+	main(renderFontHex(fontDict), ["format=cff,gpos"]).then((v)=>{
+		downloadBlob(v, "bmfont.otf", "application/octet-stream");
+	});
+}
+
+function downloadFontTTF(){
+	main(renderFontHex(fontDict), ["format=truetype,gpos"]).then((v)=>{
 		downloadBlob(v, "bmfont.otf", "application/octet-stream");
 	});
 }
